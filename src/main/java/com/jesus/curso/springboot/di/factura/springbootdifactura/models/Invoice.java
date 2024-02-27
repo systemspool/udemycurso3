@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
 @Component
+@RequestScope
+@JsonIgnoreProperties({"targetSource", "advisors"})
 public class Invoice {
-
-
 
     @Autowired
     private Client client;
@@ -85,11 +88,11 @@ public class Invoice {
     
 
     public Double getIva() {
-        return iva = subTotal *.16;
+        return subTotal *.16;
     }
 
     public Double getTotal() {
-        return total = subTotal + iva;
+        return subTotal + iva;
     }
 
     
